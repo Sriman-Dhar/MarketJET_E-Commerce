@@ -23,6 +23,7 @@ export class SellerController {
     ////Add Product Into Database
     @Post('/add_product')
     @UsePipes(new ValidationPipe())
+    @UseGuards(SessionGuard)
     addProduct(@Body() product) {
         return this.sellerService.addProduct(product);
     }
@@ -47,6 +48,7 @@ export class SellerController {
         })
     }
     ))
+    @UseGuards(SessionGuard)
     uploadedFile(@UploadedFile() prImageobj: Express.Multer.File): object {
         return ({ message: "Product Image Uploaded!" });
     }
@@ -59,12 +61,14 @@ export class SellerController {
 
     ////Add Shop Details
     @Post('/add_shop')
+    @UseGuards(SessionGuard)
     addShop(@Body() shop) {
         return this.sellerService.addShop(shop);
     }
 
     ////Delete Product Details
     @Delete('/seller/:productId')
+    @UseGuards(SessionGuard)
     deleteProductById(@Param('productId') productId) {
         console.log(productId);
         return this.sellerService.deleteProductById(productId);
@@ -73,6 +77,7 @@ export class SellerController {
     ////Update Product Details
     @Put('/update_product_details/:id')
     @UsePipes(new ValidationPipe())
+    @UseGuards(SessionGuard)
     updateProductbyId(@Param() id: number, @Body() data: ProductDTO): object {
         return this.sellerService.updateProductbyId(id, data);
     }
@@ -80,18 +85,21 @@ export class SellerController {
     ////Update Shop Details
     @Put('/update_shop_details/:id')
     @UsePipes(new ValidationPipe())
+    @UseGuards(SessionGuard)
     updateShopbyId(@Param('id', ParseIntPipe) id: number, @Body() data: ShopDTO): object {
         return this.sellerService.updateShopbyId(id, data);
     }
 
     ////Get Product Details
     @Get('get_product')
+    @UseGuards(SessionGuard)
     getProductDetails() {
         return this.sellerService.getProductDetails();
     }
 
     ////Search Product
     @Get('/search')
+    @UseGuards(SessionGuard)
     searchProduct(@Query() qry: any): object {
         return this.sellerService.searchProduct(qry.id, qry.name);
     }
