@@ -51,6 +51,8 @@ export class CustomerDetailsDTO {
 
    // @IsString()
     filenames: string;
+
+   
 }
 
 export class CustomerResetPassDTO {

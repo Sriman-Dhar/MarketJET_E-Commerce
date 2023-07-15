@@ -5,6 +5,7 @@ import { CustomerService } from "./customer.sevice";
 import { CustomerDetailsDTO, CustomerResetPassDTO, customerDTO, customerLoginDTO } from "./customer.dto";
 import { SessionGuard } from "./session.guard";
 import { ProductEntity } from "src/product/product.entity";
+import { ReviewDTO } from "src/review/review.dto";
 
 @Controller('customer')
 export class CustomerController {
@@ -110,10 +111,23 @@ export class CustomerController {
         }
 
         @Get('/totalcost')
+        @UseGuards(SessionGuard)
         async getTotalCost(): Promise<number>{
             return this.customerService.getTotalCost();
         }
 
+        @Get('/quantity')
+        @UseGuards(SessionGuard)
+        async getProductQuantity(): Promise<number>{
+            return this.customerService.getProductQuantity();
+        }
+
+        @Post('/review')
+        @UseGuards(SessionGuard)
+        async submitReview(@Body() reviewData: ReviewDTO, @Session() session): Promise<void> {
+        const email = session.email; 
+        await this.customerService.submitReview(email, reviewData);
+        }
 
         
     }

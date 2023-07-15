@@ -1,5 +1,4 @@
 import { CustomerEntity } from "src/customer/customer.entity";
-import { SellerEntity } from "src/seller/seller.entity";
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("Product")
@@ -18,9 +17,6 @@ export class ProductEntity{
 
     @Column({ name: 'Product_Image'})
     filename: string;
-
-    @ManyToMany(() => SellerEntity, seller => seller.product)
-    seller: SellerEntity;
 
     @ManyToMany(() => CustomerEntity, customer => customer.product)
     customer: CustomerEntity;
