@@ -69,7 +69,7 @@ export class SellerController {
     ////Delete Product Details
     @Delete('/seller/:productId')
     @UseGuards(SessionGuard)
-    deleteProductById(@Param('productId') productId) {
+    deleteProductById(@Param('productId', ParseIntPipe) productId: number) {
         console.log(productId);
         return this.sellerService.deleteProductById(productId);
     }
@@ -78,7 +78,7 @@ export class SellerController {
     @Put('/update_product_details/:id')
     @UsePipes(new ValidationPipe())
     @UseGuards(SessionGuard)
-    updateProductbyId(@Param() id: number, @Body() data: ProductDTO): object {
+    updateProductbyId(@Param('id', ParseIntPipe) id: number, @Body() data: ProductDTO): object {
         return this.sellerService.updateProductbyId(id, data);
     }
 
@@ -131,7 +131,6 @@ export class SellerController {
     ////Sign In
     @Post('/signin')
     async signIn(@Body() data: SellerDTO, @Session() session) {
-        
         if(await this.sellerService.signIn(data) == true) {
             session.email = data.email;
             return "Login Succesfull!!";
