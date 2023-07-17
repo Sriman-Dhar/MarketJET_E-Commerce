@@ -16,7 +16,8 @@ export class AdminController {
 
     constructor(private readonly adminService: AdminService) { }
     @Get('/index')
-    getIndex(): any {
+    @UseGuards(SessionGuard)
+    getIndex(@Session() session): any {
         return this.adminService.getIndex();
     }
     @Post('/addadmin')
