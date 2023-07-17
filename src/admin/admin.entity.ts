@@ -21,25 +21,5 @@ filenames:string|null;
  products: ProductEntity[];
 }
 
-@Entity("AdminProfile")
-export class AdminProfile{
-@PrimaryGeneratedColumn()
-id:number;
-@Column()
-name:string;
-@Column({type: "varchar",length: 150})
-photo:string;
-}
-
-@Entity("AdminAdress")
-export class AdminAdress{
-@PrimaryGeneratedColumn()
-id:number;
-@Column()
-name:string;
-@Column({type: "varchar",length: 150})
-photo:string;
-}
-
 
 
